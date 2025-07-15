@@ -1,0 +1,61 @@
+2025-07-15 18:55:01,513 - StockTweetsScraper - INFO - 开始抓取关于 $TSLA 的推文
+2025-07-15 18:55:03,275 - selenium.webdriver.common.selenium_manager - WARNING - Exception managing chrome: error sending request for url (https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json)
+2025-07-15 18:55:04,702 - StockTweetsScraper - INFO - 正在访问: https://twitter.com/search?q=%24TSLA%20since%3A2025-01-01&src=typed_query&f=live
+2025-07-15 18:55:25,199 - StockTweetsScraper - ERROR - 抓取推文时出错: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=138.0.7204.101)
+Stacktrace:
+0   chromedriver                        0x00000001027d8e6c cxxbridge1$str$ptr + 2722840
+1   chromedriver                        0x00000001027d0d74 cxxbridge1$str$ptr + 2689824
+2   chromedriver                        0x00000001023223ec cxxbridge1$string$len + 90648
+3   chromedriver                        0x00000001022fc144 chromedriver + 131396
+4   chromedriver                        0x000000010239160c cxxbridge1$string$len + 545848
+5   chromedriver                        0x00000001023aa454 cxxbridge1$string$len + 647808
+6   chromedriver                        0x000000010235d834 cxxbridge1$string$len + 333408
+7   chromedriver                        0x000000010279bf88 cxxbridge1$str$ptr + 2473268
+8   chromedriver                        0x000000010279f1f4 cxxbridge1$str$ptr + 2486176
+9   chromedriver                        0x000000010277d9d0 cxxbridge1$str$ptr + 2348924
+10  chromedriver                        0x000000010279fab0 cxxbridge1$str$ptr + 2488412
+11  chromedriver                        0x000000010276ea60 cxxbridge1$str$ptr + 2287628
+12  chromedriver                        0x00000001027bf9a0 cxxbridge1$str$ptr + 2619212
+13  chromedriver                        0x00000001027bfb2c cxxbridge1$str$ptr + 2619608
+14  chromedriver                        0x00000001027d09b0 cxxbridge1$str$ptr + 2688860
+15  libsystem_pthread.dylib             0x0000000198301c0c _pthread_start + 136
+16  libsystem_pthread.dylib             0x00000001982fcb80 thread_start + 8
+
+2025-07-15 18:55:25,624 - StockTweetsScraper - ERROR - 未找到关于 $TSLA 的推文或抓取失败
+2025-07-15 18:56:45,668 - StockTweetsScraper - INFO - 开始抓取关于 $TSLA 的推文
+2025-07-15 18:56:45,863 - selenium.webdriver.common.selenium_manager - WARNING - Exception managing chrome: error sending request for url (https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json)
+2025-07-15 18:56:46,585 - StockTweetsScraper - INFO - 正在访问: https://twitter.com/search?q=%24TSLA%20since%3A2025-01-01&src=typed_query&f=live
+2025-07-15 18:57:11,322 - StockTweetsScraper - WARNING - 等待推文元素超时
+2025-07-15 18:57:16,425 - StockTweetsScraper - ERROR - 抓取推文时出错: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=138.0.7204.101)
+Stacktrace:
+0   chromedriver                        0x00000001005cce6c cxxbridge1$str$ptr + 2722840
+1   chromedriver                        0x00000001005c4d74 cxxbridge1$str$ptr + 2689824
+2   chromedriver                        0x00000001001163ec cxxbridge1$string$len + 90648
+3   chromedriver                        0x00000001000f0144 chromedriver + 131396
+4   chromedriver                        0x000000010018560c cxxbridge1$string$len + 545848
+5   chromedriver                        0x000000010019e454 cxxbridge1$string$len + 647808
+6   chromedriver                        0x0000000100151834 cxxbridge1$string$len + 333408
+7   chromedriver                        0x000000010058ff88 cxxbridge1$str$ptr + 2473268
+8   chromedriver                        0x00000001005931f4 cxxbridge1$str$ptr + 2486176
+9   chromedriver                        0x00000001005719d0 cxxbridge1$str$ptr + 2348924
+10  chromedriver                        0x0000000100593ab0 cxxbridge1$str$ptr + 2488412
+11  chromedriver                        0x0000000100562a60 cxxbridge1$str$ptr + 2287628
+12  chromedriver                        0x00000001005b39a0 cxxbridge1$str$ptr + 2619212
+13  chromedriver                        0x00000001005b3b2c cxxbridge1$str$ptr + 2619608
+14  chromedriver                        0x00000001005c49b0 cxxbridge1$str$ptr + 2688860
+15  libsystem_pthread.dylib             0x0000000198301c0c _pthread_start + 136
+16  libsystem_pthread.dylib             0x00000001982fcb80 thread_start + 8
+
+2025-07-15 18:57:16,750 - StockTweetsScraper - ERROR - 未找到关于 $TSLA 的推文或抓取失败
+2025-07-15 18:57:34,910 - StockTweetsScraper - INFO - 开始抓取关于 $TSLA 的推文
+2025-07-15 18:57:35,071 - selenium.webdriver.common.selenium_manager - WARNING - Exception managing chrome: error sending request for url (https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json)
+2025-07-15 18:57:35,559 - StockTweetsScraper - INFO - 正在访问: https://twitter.com/search?q=%24TSLA%20since%3A2025-01-01&src=typed_query&f=live
+2025-07-15 18:57:57,626 - StockTweetsScraper - WARNING - 等待推文元素超时
+2025-07-15 18:58:07,966 - StockTweetsScraper - WARNING - 等待推文元素超时
+2025-07-15 18:58:18,281 - StockTweetsScraper - WARNING - 等待推文元素超时
+2025-07-15 18:58:18,282 - StockTweetsScraper - ERROR - 达到最大重试次数，退出
+2025-07-15 18:58:18,712 - StockTweetsScraper - ERROR - 未找到关于 $TSLA 的推文或抓取失败
