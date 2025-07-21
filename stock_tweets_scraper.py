@@ -1,8 +1,6 @@
 """
-用firefox
 Twitter股票标签($TSLA等)爬虫
 专门用于抓取Twitter/X上包含特定股票标签的推文及评论
-
 """
 
 import os
@@ -14,6 +12,9 @@ import argparse
 import pandas as pd
 from datetime import datetime
 from pathlib import Path
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -23,7 +24,6 @@ from selenium.common.exceptions import (
     StaleElementReferenceException,
     WebDriverException
 )
-import undetected_chromedriver as uc
 
 # 配置日志
 logging.basicConfig(
@@ -38,14 +38,26 @@ logging.basicConfig(
 logger = logging.getLogger("StockTweetsScraper")
 
 class StockTweetsScraper:
+    """Twitter股票标签爬虫类"""
+    
     def __init__(self, headless=False, use_proxy=False, data_dir="data"):
+        """
+        初始化爬虫
+        
+        参数:
+            headless: 是否使用无头模式
+            use_proxy: 是否使用代理
+            data_dir: 数据保存目录
+        """
         self.headless = headless
         self.use_proxy = use_proxy
         self.data_dir = data_dir
         self.driver = None
-
+        
+        # 创建数据目录
         Path(data_dir).mkdir(exist_ok=True)
-
+        
+        # 用户代理列表
         self.user_agents = [
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36",
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Safari/605.1.15",
@@ -53,54 +65,34 @@ class StockTweetsScraper:
             "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36",
             "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1"
         ]
-
+    
     def setup_driver(self):
-        """使用 undetected_chromedriver 启动防检测浏览器"""
-        options = uc.ChromeOptions()
-
-    # 防检测配置
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--disable-blink-features=AutomationControlled")
-        options.add_argument("--disable-infobars")
-
-    # 设置随机 user-agent
+        """配置Selenium WebDriver"""
+        chrome_options = Options()
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        
+        # 随机选择用户代理
         user_agent = random.choice(self.user_agents)
-        options.add_argument(f"--user-agent={user_agent}")
-
+        chrome_options.add_argument(f'--user-agent={user_agent}')
+        
         if self.headless:
-            options.add_argument("--headless=new")
-            options.add_argument("--disable-gpu")
-
+            chrome_options.add_argument("--headless")
+        
+        # 如果使用代理
         if self.use_proxy:
+            # 这里应该替换为实际的代理地址
             PROXY = "http://your-proxy-address:port"
-            options.add_argument(f'--proxy-server={PROXY}')
-
-        options.add_experimental_option("excludeSwitches", ["enable-automation"])
-        options.add_experimental_option("useAutomationExtension", False)
-
+            chrome_options.add_argument(f'--proxy-server={PROXY}')
+        
         try:
-            driver = uc.Chrome(options=options, use_subprocess=True)
-
-        # 注入 JS，在页面加载前覆盖 navigator.webdriver
-            driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
-                "source": """
-                    Object.defineProperty(navigator, 'webdriver', {
-                get: () => undefined
-        });
-    """
-})
-
-
+            driver = webdriver.Chrome(options=chrome_options)
             driver.set_page_load_timeout(30)
             return driver
-
         except WebDriverException as e:
-            logger.error(f"设置 WebDriver 时出错: {e}")
+            logger.error(f"设置WebDriver时出错: {e}")
             raise
-
     
-
     def _extract_tweet_id(self, tweet_url):
         """从推文URL提取推文ID"""
         try:
@@ -174,9 +166,9 @@ class StockTweetsScraper:
             
             logger.info(f"正在访问: {search_url}")
             self.driver.get(search_url)
-            
-            # 等待页面加载
-            time.sleep(5)
+
+            # 等待页面加载（比如60秒，给你手动登录时间）
+            time.sleep(60)
             
             tweets_data = []
             last_height = self.driver.execute_script("return document.body.scrollHeight")
@@ -269,12 +261,12 @@ class StockTweetsScraper:
                         logger.error(f"处理推文时出错: {e}")
                         continue
                 
-                # 随机延迟，模拟人类行为
-                time.sleep(random.uniform(1, 3))
+                # 随机延迟，模拟人类操作
+                time.sleep(random.uniform(2, 5))  # 每次循环间隔2~5秒
                 
                 # 滚动到页面底部加载更多推文
                 self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                time.sleep(2)
+                time.sleep(random.uniform(2, 4))  # 滚动后再等2~4秒
                 
                 # 检查是否已滚动到底部
                 new_height = self.driver.execute_script("return document.body.scrollHeight")
@@ -615,4 +607,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
